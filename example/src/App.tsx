@@ -23,12 +23,12 @@ export default function App() {
 	const targetRef = useRef(null)
 
 	const onLoadMore = () => {
-		if (params._start > 95) {
+		if (params._start >= 95) {
 			return
 		}
 		updateParams(prev => ({
+			...prev,
 			_start: prev._start + 10,
-			_limit: prev._limit,
 		}))
 	}
 
@@ -41,7 +41,7 @@ export default function App() {
 			<h1>Infinite scroll example</h1>
 			<Items items={items} />
 			{isLoading && <div className='loader'>is loading...</div>}
-			{params._start < 95 ? <div ref={targetRef} /> : <h4>Reached end</h4>}
+			{params._start < 95 && !isLoading ? <div ref={targetRef} /> : <h4>Reached end</h4>}
 		</div>
 	)
 }
